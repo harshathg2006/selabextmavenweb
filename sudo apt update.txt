@@ -1,0 +1,84 @@
+sudo apt update
+ sudo apt-get install docker.io 
+sudo apt install git
+ sudo apt install nano
+ git clone < Copied Httpath>
+cd cloned folder
+nano Docker(ctrl 0  enter ctrl X)
+sudo docker build -t myapp .
+sudo docker run -d -p 80:80 myapp
+sudo docker ps
+sudo docker stop <container-id>
+
+****MAVEN 
+
+FROM tomcat:9-jdk11
+COPY target/*.war /usr/local/tomcat/webapps
+CMD ["catalina.sh", "run"]
+
+****index.html
+
+FROM nginx: alpine
+
+copy . /usr/share/nginx/html
+
+
+
+******************
+
+
+pipeline {
+    agent any
+
+    tools {
+        maven 'MAVEN-HOME'
+    }
+
+    stages {
+
+        stage('git repo & clean') {
+            steps {
+                bat "git clone https://github.com/ASHRITHGOUD/maven-se-lab.git"
+                bat "mvn clean -f maven-se-lab/pom.xml"
+            }
+        }
+
+        stage('install') {
+            steps {
+                bat "mvn install -f maven-se-lab/pom.xml"
+            }
+        }
+
+        stage('test') {
+            steps {
+                bat "mvn test -f maven-se-lab/pom.xml"
+            }
+        }
+
+        stage('package') {
+            steps {
+                bat 'mvn package -f maven-se-lab/pom.xml'
+            }
+        }
+    }
+}
+
+
+
+
+****************
+
+
+Jenkins 
+Username: admin
+Password:
+669ce3f60
+c384aeca21
+d3aa0d7cabf71
+
+
+
+
+
+
+
